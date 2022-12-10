@@ -2,4 +2,4 @@
 __pycache__/
 ./venv/
 *.jpg
-labels_names.txt
+label_names.txt
