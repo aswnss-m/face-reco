@@ -1,3 +1,6 @@
 *.png
 __pycache__/
 ./venv/
+*.jpg
+
+label_names.txt
