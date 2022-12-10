@@ -42,8 +42,10 @@ class faceReco():
                 for (x, y, w, h) in front_face:
                     roi = gray[y:y+h, x:x+w] #crops into face 
                     id_,conf_ = self.recogniser.predict(roi)
-                    if conf_ >= 60:
+                    if conf_ >= 65:
                         print(self.names_derived[id_])
+                        print("Secret message")
+                        break
                     else:
                         print("Not recognized")
                     #* draws the rectangle in the face , where to show,starting , ending , color , stroke width
