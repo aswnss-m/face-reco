@@ -23,15 +23,15 @@ def run():
     'q' to exit the program
     """)
 
-    opt = int(input("Enter your choice : "))
-    if opt not in [1,2,3,'q']:
+    opt = input("Enter your choice : ")
+    if opt not in ['1','2','3','q']:
         print("Wrong Choice Restarting Face Recognition")
-    elif opt == 1:
+    elif opt == '1':
         addFace().run()
         trainFace().run()
-    elif opt == 2:
+    elif opt == '2':
         faceReco().run()
-    elif opt == 3:
+    elif opt == '3':
         trainFace().run()
     elif opt == 'q':
          exit()

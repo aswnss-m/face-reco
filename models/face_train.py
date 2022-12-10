@@ -45,7 +45,7 @@ class trainFace():
                             self.x_train.append(roi)
                             self.y_label.append(id_)
 
-        with open("labels.pickle", "wb") as f:
+        with open(self.BASE_DIR+"\labels.pickle", "wb") as f:
             pickle.dump(self.label_id, f)
         with open("label_names.txt", "w") as f:
             string = []
@@ -55,5 +55,5 @@ class trainFace():
             f.write("\n".join(string))
             
         print("Training Completed")
-        # self.recogniser.train(self.x_train, np.array(self.y_label))
-        # self.recogniser.save("trainner.yml")
+        self.recogniser.train(self.x_train, np.array(self.y_label))
+        self.recogniser.save("trainner.yml")

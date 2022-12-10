@@ -15,15 +15,15 @@ class faceReco():
 
     recogniser = cv2.face.LBPHFaceRecognizer_create()
     recogniser.read(str(BASE_DIR)+'\\trainner.yml')
+    NAMES = None
     with open("label_names.txt","r") as f:
         names = f.read()
-        names = names.split("\n")
-        names_derived = []
-        for name in names:
-            names_derived.append(name.split()[0])
-
+        NAMES = names
     def run(self):
-
+        names_derived = []
+        for name in self.NAMES.split("\n"):
+            names_derived.append(name.split()[0])
+        print(names_derived)
         # id = 0 #used for data collection 
         while True:
 
@@ -36,14 +36,13 @@ class faceReco():
             front_face = self.front_face_cascade.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=5)
             side_face = self.side_face_cascade.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=5)
 
-            filename = "_image.png" #used for datacollection purpose only
 
             if front_face != ():
                 for (x, y, w, h) in front_face:
                     roi = gray[y:y+h, x:x+w] #crops into face 
                     id_,conf_ = self.recogniser.predict(roi)
-                    if conf_ >= 65:
-                        print(self.names_derived[id_])
+                    if conf_ >= 55:
+                        print(names_derived[id_])
                     else:
                         print("Not recognized")
                     #* draws the rectangle in the face , where to show,starting , ending , color , stroke width

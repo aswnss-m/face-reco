@@ -1,4 +1,4 @@
-aswin 0
-hashir 1
-manohar 2
-random 3
+hashir 0
+manohar 1
+random 2
+suroor 3
