@@ -1,5 +1,4 @@
 aswin 0
-aswin_lal 1
-hashir 2
-manohar 3
-random 4
+hashir 1
+manohar 2
+random 3
