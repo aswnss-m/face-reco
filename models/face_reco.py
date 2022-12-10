@@ -1,0 +1,51 @@
+"""
+Python Program to identify if there is a face in front of the camera,
+This program uses the pretrained haarcascase classifier of the opencv and idenfity front and side faces in the camera
+"""
+
+import numpy as np
+import cv2
+import pickle
+import keyboard
+class faceReco():
+    camera = cv2.VideoCapture(0)
+    front_face_cascade = cv2.CascadeClassifier('cascades\haarcascade_frontalface_alt2.xml') #front face classifier
+    side_face_cascade = cv2.CascadeClassifier('cascades\haarcascade_profileface.xml') #side face classifier
+
+    recogniser = cv2.face.LBPHFaceRecognizer_create()
+    recogniser.read('trainner.yml')
+    def run():
+
+        # id = 0 #used for data collection 
+        while True:
+
+            #Capture frame by frame
+            ret, frame = self.camera.read()
+
+            # coverting the image into grayscale
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+            front_face = self.front_face_cascade.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=5)
+            side_face = self.side_face_cascade.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=5)
+
+            filename = "_image.png" #used for datacollection purpose only
+
+            if front_face != ():
+                for (x, y, w, h) in front_face:
+                    roi = gray[y:y+h, x:x+w] #crops into face 
+                    id_,conf_ = self.recogniser.predict(roi)
+                    print(id_)
+                    #* draws the rectangle in the face , where to show,starting , ending , color , stroke width
+                    cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+            else:
+                for (x, y, w, h) in side_face:
+                    cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+
+            cv2.imshow('frame',frame)
+            if keyboard.is_pressed('q'):  # if key 'q' is pressed 
+                break  # finishing the loop
+
+        self.camera.release()
+        cv2.destroyAllWindows()
+
+        # Need to add dataset of other human faces so that the modal can output value 2 for other faces
