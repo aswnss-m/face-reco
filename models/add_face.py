@@ -1,7 +1,7 @@
 
 import cv2
 import os
-
+import keyboard
 
 class addFace():
     camera = cv2.VideoCapture(0)
@@ -13,7 +13,7 @@ class addFace():
         name = input("Enter your name : ")
         name = name.strip().replace(" ","_")
         filename = name + ".png"  # used for datacollection purpose only
-        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        BASE_DIR = os.path.dirname(os.path.abspath(__name__))
         image_dir = os.path.join(BASE_DIR, 'dataset')
         os.mkdir(os.path.join(image_dir, name))
         final_path = os.path.join(image_dir, name)
@@ -32,7 +32,7 @@ class addFace():
                 for (x, y, w, h) in front_face:
                     Image = frame[y:y+h, x:x+w]  # crops into face
                     nameOfFile = "front_"+str(self.id)+filename
-                    cv2.imwrite(os.path.join(final_path, nameOfFile), Image)
+                    cv2.imwrite(os.path.join(final_path, nameOfFile), frame)
                     self.id += 1
 
                     # * draws the rectangle in the face , where to show,starting , ending , color , stroke width

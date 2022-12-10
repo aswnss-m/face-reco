@@ -2,19 +2,27 @@
 Python Program to identify if there is a face in front of the camera,
 This program uses the pretrained haarcascase classifier of the opencv and idenfity front and side faces in the camera
 """
-
+import os
 import numpy as np
 import cv2
 import pickle
 import keyboard
 class faceReco():
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))[:-7]
     camera = cv2.VideoCapture(0)
-    front_face_cascade = cv2.CascadeClassifier('cascades\haarcascade_frontalface_alt2.xml') #front face classifier
-    side_face_cascade = cv2.CascadeClassifier('cascades\haarcascade_profileface.xml') #side face classifier
+    front_face_cascade = cv2.CascadeClassifier(str(BASE_DIR)+ '\\cascades\haarcascade_frontalface_alt2.xml') #front face classifier
+    side_face_cascade = cv2.CascadeClassifier(str(BASE_DIR)+ '\\cascades\haarcascade_profileface.xml') #side face classifier
 
     recogniser = cv2.face.LBPHFaceRecognizer_create()
-    recogniser.read('trainner.yml')
-    def run():
+    recogniser.read(str(BASE_DIR)+'\\trainner.yml')
+    with open("label_names.txt","r") as f:
+        names = f.read()
+        names = names.split("\n")
+        names_derived = []
+        for name in names:
+            names_derived.append(name.split()[0])
+
+    def run(self):
 
         # id = 0 #used for data collection 
         while True:
@@ -34,7 +42,10 @@ class faceReco():
                 for (x, y, w, h) in front_face:
                     roi = gray[y:y+h, x:x+w] #crops into face 
                     id_,conf_ = self.recogniser.predict(roi)
-                    print(id_)
+                    if conf_ >= 60:
+                        print(self.names_derived[id_])
+                    else:
+                        print("Not recognized")
                     #* draws the rectangle in the face , where to show,starting , ending , color , stroke width
                     cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
             else:

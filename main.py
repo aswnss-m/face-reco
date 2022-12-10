@@ -14,21 +14,28 @@ from face_reco import faceReco
 def run():
     
     print(
-    """Welcome to Face Recognition 101
+    """
+    Welcome to Face Recognition 101
     *************************************
     1. Add your face
     2. Face recognition
+    3. Train face // will automatically execute
+    'q' to exit the program
     """)
 
     opt = int(input("Enter your choice : "))
-    if opt not in [1,2]:
+    if opt not in [1,2,3,'q']:
         print("Wrong Choice Restarting Face Recognition")
-        run()
     elif opt == 1:
         addFace().run()
         trainFace().run()
     elif opt == 2:
+        faceReco().run()
+    elif opt == 3:
         trainFace().run()
+    elif opt == 'q':
+         exit()
+    run()
 
 if __name__ == "__main__":
     run()
