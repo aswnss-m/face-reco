@@ -6,9 +6,9 @@ path += "\\models"
 
 sys.path.append(path)
 
-from add_face import addFace
-from face_train import trainFace
-from face_reco import faceReco
+
+
+
 
 
 def run():
@@ -19,7 +19,7 @@ def run():
     *************************************
     1. Add your face
     2. Face recognition
-    3. Train face // will automatically execute
+    3. Train face
     'q' to exit the program
     """)
 
@@ -27,11 +27,13 @@ def run():
     if opt not in ['1','2','3','q']:
         print("Wrong Choice Restarting Face Recognition")
     elif opt == '1':
+        from add_face import addFace
         addFace().run()
-        trainFace().run()
     elif opt == '2':
+        from face_reco import faceReco
         faceReco().run()
     elif opt == '3':
+        from face_train import trainFace
         trainFace().run()
     elif opt == 'q':
          exit()

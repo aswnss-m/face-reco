@@ -16,7 +16,7 @@ class faceReco():
     recogniser = cv2.face.LBPHFaceRecognizer_create()
     recogniser.read(str(BASE_DIR)+'\\trainner.yml')
     NAMES = None
-    with open("label_names.txt","r") as f:
+    with open(str(BASE_DIR)+"\\label_names.txt","r") as f:
         names = f.read()
         NAMES = names
     def run(self):

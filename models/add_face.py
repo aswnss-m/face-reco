@@ -2,11 +2,13 @@
 import cv2
 import os
 import keyboard
-
+import os
 class addFace():
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))[:-7]
     camera = cv2.VideoCapture(0)
-    front_face_cascade = cv2.CascadeClassifier('cascades\haarcascade_frontalface_alt2.xml')  # front face classifier
-    side_face_cascade = cv2.CascadeClassifier('cascades\haarcascade_profileface.xml')  # side face classifier
+    front_face_cascade = cv2.CascadeClassifier(str(BASE_DIR)+ '\\cascades\haarcascade_frontalface_alt2.xml') #front face classifier
+    side_face_cascade = cv2.CascadeClassifier(str(BASE_DIR)+ '\\cascades\haarcascade_profileface.xml') #side face classifier
+    
     id = 0
 
     def run(self):
